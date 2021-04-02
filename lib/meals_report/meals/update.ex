@@ -12,15 +12,18 @@ defmodule MealsReport.Meals.Update do
 
   defp find_meal(id, params) do
     case Repo.get(Meals, id) do
-      nil -> {:error, "User could not be found"}
+      nil -> {:error, "Meal could not be found"}
       meals -> do_update(meals, params)
     end
   end
 
   defp do_update(meals, params) do
-    meals
-    |>Meals.changeset(params)
-    |>Repo.update()
+      map_to_atom =
+      params
+      |> Map.new(fn {key, value} -> {String.to_atom(key), value} end)
+      IO.inspect(map_to_atom)
+      meals = Ecto.Changeset.change meals, map_to_atom
+      Repo.update(meals)
   end
 
 end
