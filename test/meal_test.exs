@@ -16,9 +16,7 @@ defmodule MealsReport.MealTest do
       response =
         build(:meals_params, date: "1234")
         |>Meals.changeset()
-
       assert %{date: ["is invalid"]} == errors_on(response)
     end
   end
-
 end

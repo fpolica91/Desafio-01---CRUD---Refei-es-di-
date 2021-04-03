@@ -1,0 +1,12 @@
+{
+  "skip_files": [
+    "test/support/",
+    "lib/meals_report_web/channels/",
+    "lib/meals_report_web/controllers/welcome_controller.ex",
+    "lib/meals_report/repo.ex",
+    "lib/meals_report_web.ex",
+    "lib/meals_report_web/router.ex",
+    "lib/meals_report_web/views/error_helpers",
+    "lib/meals_report.ex"
+  ]
+}
