@@ -15,16 +15,16 @@ defmodule MealsReport.Meals.Get do
   defp get_meal(id) do
     case Repo.get(Meals, id) do
       nil ->  {:error, Error.build(:not_found, "Meal cannot be found")}
-      meals -> render_meal(meals)
+      meals -> {:ok, meals}
     end
   end
 
-  defp render_meal(meals)do
-    meals =
-    meals
-    |>Repo.preload(:user)
-    {:ok, meals}
-  end
+  # defp render_meal(meals)do
+  #   meals =
+  #   meals
+  #   |>Repo.preload(:user)
+  #   {:ok, meals}
+  # end
 
 
 

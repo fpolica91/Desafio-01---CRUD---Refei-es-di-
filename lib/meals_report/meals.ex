@@ -6,7 +6,7 @@ defmodule MealsReport.Meals do
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   @required_params [:description, :date, :calories, :user_id]
-  @derive {Jason.Encoder, only: @required_params ++[:id, :user]}
+  @derive {Jason.Encoder, only: @required_params ++[:id]}
 
 
     schema "meals" do

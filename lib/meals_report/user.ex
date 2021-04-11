@@ -6,7 +6,7 @@ defmodule MealsReport.User  do
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @required_params [:cpf,:email, :name]
-  @derive {Jason.Encoder, only: [:id,:email, :name, :cpf]}
+  @derive {Jason.Encoder, only: @required_params ++[:id, :meals]}
 
   schema "users" do
     field :name, :string
