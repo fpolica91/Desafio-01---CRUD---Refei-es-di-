@@ -4,8 +4,9 @@ defmodule MealsReport.Meals do
 
 
   @primary_key {:id, :binary_id, autogenerate: true}
-  @required_params [:description, :date, :calories]
-  @derive {Jason.Encoder, only: [:description,:date, :calories, :id]}
+  @foreign_key_type :binary_id
+  @required_params [:description, :date, :calories, :user_id]
+  @derive {Jason.Encoder, only: @required_params ++[:id, :user]}
 
 
     schema "meals" do
@@ -13,6 +14,7 @@ defmodule MealsReport.Meals do
       field :description, :string
       field :date, :naive_datetime
       field :calories, :integer
+      belongs_to :user, MealsReport.User
       timestamps()
     end
 
@@ -21,5 +23,4 @@ defmodule MealsReport.Meals do
       |>cast(params, @required_params)
       |>validate_required(@required_params)
     end
-
 end

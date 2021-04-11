@@ -1,18 +1,18 @@
 defmodule MealsReport.Meals.Update do
-  alias MealsReport.{Meals, Repo}
+  alias MealsReport.{Meals, Repo, Error}
   alias Ecto.UUID
 
   def call(%{"id" => id} = params) do
     case UUID.cast(id) do
       {:ok, id} -> find_meal(id, params)
-      :error -> {:error, %{status: :not_found, result: "Invalid id format"}}
+      :error -> {:error, Error.build(:bad_request, "Invalid Id")}
     end
   end
 
 
   defp find_meal(id, params) do
     case Repo.get(Meals, id) do
-      nil -> {:error, "Meal could not be found"}
+      nil -> {:error, Error.build(:not_found, "Meal could not be found")}
       meals -> do_update(meals, params)
     end
   end

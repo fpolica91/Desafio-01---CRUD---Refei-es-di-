@@ -13,3 +13,5 @@ defmodule MealsReport.Repo.Migrations.CreateMealsTable do
 
   end
 end
+
+# add :user_id, references(:users, type: :binary_id)

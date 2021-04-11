@@ -1,6 +1,8 @@
 defmodule  MealsReportWeb.MealsController do
   use MealsReportWeb, :controller
   alias MealsReport.Meals
+  alias MealsReportWeb.FallbackController
+  action_fallback FallbackController
 
   def create(connection, params) do
     with {:ok, %Meals{} = meals }  <- MealsReport.create_meal(params) do

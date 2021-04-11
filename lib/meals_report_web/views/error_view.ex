@@ -1,5 +1,7 @@
 defmodule MealsReportWeb.ErrorView do
   use MealsReportWeb, :view
+  alias Ecto.Changeset
+
 
   # If you want to customize a particular status code
   # for a certain format, you may uncomment below.
@@ -10,7 +12,28 @@ defmodule MealsReportWeb.ErrorView do
   # By default, Phoenix returns the status message from
   # the template name. For example, "404.json" becomes
   # "Not Found".
+  def render("error.json", %{result: %Changeset{} = changeset}) do
+    %{message: translate_errors(changeset)}
+  end
+
+  def render("error.json", %{result: result}), do: %{message: result}
+
+
   def template_not_found(template, _assigns) do
     %{errors: %{detail: Phoenix.Controller.status_message_from_template(template)}}
   end
+
+
+
+
+  defp translate_errors(changeset) do
+    Ecto.Changeset.traverse_errors(changeset, fn {msg, opts} ->
+      Enum.reduce(opts, msg, fn {key, value}, acc ->
+        String.replace(acc, "%{#{key}}", translate(value))
+      end)
+    end)
+  end
+
+  defp translate({:parameterized, Ecto.Enum, _map}), do: ""
+  defp translate(value), do: to_string(value)
 end

@@ -7,7 +7,6 @@ defmodule MealsReportWeb.Router do
 
   scope "/api", MealsReportWeb do
     pipe_through :api
-    get "/hello", WelcomeController, :index
     resources "/meals", MealsController, except: [:new, :edit]
   end
 

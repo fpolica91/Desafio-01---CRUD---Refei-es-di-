@@ -1,5 +1,6 @@
 defmodule MealsReport.Meals.Create do
-  alias MealsReport.{Meals, Repo}
+  alias MealsReport.{Meals, Repo, Error}
+
 
   def call(params) do
     params
@@ -8,10 +9,14 @@ defmodule MealsReport.Meals.Create do
     |>handle_insert()
   end
 
-  defp handle_insert({:ok, %Meals{}} = meal), do: meal
+  defp handle_insert({:ok, %Meals{}} = meal) do
+    {:ok, meal} = meal
+    meal =  meal |> Repo.preload(:user)
+    {:ok, meal}
+  end
 
   defp handle_insert({:error, result}) do
-    {:error, %{status: :bad_request, result: result}}
+    {:error, Error.build(:bad_request, result)}
   end
 
 end
