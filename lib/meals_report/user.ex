@@ -23,8 +23,4 @@ defmodule MealsReport.User  do
     |> validate_required(@required_params)
 
   end
-
-
-
-
 end

@@ -23,3 +23,7 @@ defmodule MealsReport.Users.Get do
   end
 
 end
+
+# from(user in User,
+#   preload: [:meals]
+# )
